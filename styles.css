@@ -292,6 +292,10 @@ body {
   transition: color 0.25s;
 }
 
+.todo__delete svg {
+  color: #016d67;
+}
+
 .todo__delete:hover svg {
   color: red;
 }

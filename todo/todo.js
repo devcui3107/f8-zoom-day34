@@ -80,7 +80,9 @@ function Main() {
   };
 
   const handleDeleteTask = (taskId, taskName) => {
-    confirm(`Bạn có chắc muốn xoá task "${taskName}" không?`);
+    const isConfirm = confirm(`Bạn có chắc muốn xoá task "${taskName}" không?`);
+    if (!isConfirm) return;
+
     setTodoList(
       todoList.filter((item) => {
         return item.id !== taskId;
