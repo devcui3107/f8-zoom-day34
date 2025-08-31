@@ -19,48 +19,54 @@ function Header({ title }) {
 // Function Main
 function Main() {
   const [data, setData] = React.useState({});
+  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     const baseUrl = "https://jsonplaceholder.typicode.com/users/1";
     const dataApi = fetch(baseUrl).then((response) => response.json());
     dataApi.then((result) => {
       setData(result);
+      setLoading(false);
     });
   }, []);
 
   return (
     <div className="container">
       <div className="main">
-        <div className="profile">
-          <div className="profile__image">
-            <img
-              src="https://anhdephd.vn/wp-content/uploads/2022/04/anh-gai-nhat-ban.jpg"
-              alt=""
-              className="profile__img"
-            />
+        {loading ? (
+          <p className="loading">Loading...</p>
+        ) : (
+          <div className="profile">
+            <div className="profile__image">
+              <img
+                src="https://anhdephd.vn/wp-content/uploads/2022/04/anh-gai-nhat-ban.jpg"
+                alt=""
+                className="profile__img"
+              />
+            </div>
+            <div className="profile__info">
+              <h2 className="profile__title">{data.name}</h2>
+              <dl className="profile__details">
+                <dt className="profile__label">Username</dt>
+                <dd className="profile__value">{data.username}</dd>
+
+                <dt className="profile__label">Email</dt>
+                <dd className="profile__value">{data.email}</dd>
+
+                <dt className="profile__label">Phone</dt>
+                <dd className="profile__value">{data.phone}</dd>
+
+                <dt className="profile__label">Website</dt>
+                <dd className="profile__value">{data.website}</dd>
+
+                <dt className="profile__label">Address</dt>
+                <dd className="profile__value">
+                  {data?.address?.street}, {data?.address?.city}
+                </dd>
+              </dl>
+            </div>
           </div>
-          <div className="profile__info">
-            <h2 className="profile__title">{data.name}</h2>
-            <dl className="profile__details">
-              <dt className="profile__label">Username</dt>
-              <dd className="profile__value">{data.username}</dd>
-
-              <dt className="profile__label">Email</dt>
-              <dd className="profile__value">{data.email}</dd>
-
-              <dt className="profile__label">Phone</dt>
-              <dd className="profile__value">{data.phone}</dd>
-
-              <dt className="profile__label">Website</dt>
-              <dd className="profile__value">{data.website}</dd>
-
-              <dt className="profile__label">Address</dt>
-              <dd className="profile__value">
-                {data?.address?.street}, {data?.address?.city}
-              </dd>
-            </dl>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
